@@ -3,13 +3,14 @@ package com.kiril.game.screens;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.kiril.game.entities.Disk;
 import com.kiril.game.stackit.MainGame;
 
-public class GameScreen implements Screen{
+public class GameScreen implements Screen, InputProcessor{
 
 	//objects
 	MainGame game;
@@ -19,6 +20,8 @@ public class GameScreen implements Screen{
 	
 	//disks lists
 	ArrayList<Disk> disks;
+	
+	int currentDisk = 7;
 	
 	public GameScreen(MainGame game) {
 		this.game = game;
@@ -67,25 +70,37 @@ public class GameScreen implements Screen{
 		
 	}
 	
+	boolean isDiskTouched = false;
+	
 	private void buttons(){
 		float touchX = game.cam.getInputInGameWorld().x;
 		//reversing the getY 
 		float touchY = MainGame.HEIGHT - game.cam.getInputInGameWorld().y;
 		
+		
+		boolean changedCurrDisk = false;
+		
 		for(Disk disk : disks){
-			
-				
-				if(touchX >= disk.getX() && touchX < disk.getX() + disk.getWIDTH() && touchY >= disk.getY() && touchY <= disk.getY() + disk.getHEIGHT()){
-					if(Gdx.input.isTouched()){
-					disk.setX(touchX - disk.getWIDTH() / 2);
-					disk.setY(touchY - disk.getHEIGHT() / 2);
-					System.out.println("is Touching");
+	
+				if(touchX >= disk.getX() && touchX < disk.getX() + disk.getWIDTH() && touchY >= disk.getY() && touchY <= disk.getY() + disk.getHEIGHT() && !isDiskTouched){
+					isDiskTouched = true;
 				}
-			
-				
-			}
+			if(Gdx.input.isTouched(0) && isDiskTouched && disk.getDiskIndex() == 7){
+					if(touchDragged((int)disk.getX(), (int)disk.getY(), 0)){
+						disk.setX(touchX);
+						disk.setY(touchY);
+						System.out.println("dragging");
+						
+					}else {isDiskTouched = false;
+					System.out.println("Disk is waiting to be touched");
+					}
+					}
 		}
-	}
+			
+		}
+		
+		//System.out.println("currenct disk on top: "+currentDisk);
+	//}
 
 	@Override
 	public void show() {
@@ -129,6 +144,54 @@ public class GameScreen implements Screen{
 
 	public void setDisks(ArrayList<Disk> disks) {
 		this.disks = disks;
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

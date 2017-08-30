@@ -15,7 +15,7 @@ public class Disk {
 	int WIDTH, HEIGHT;
 	
 	//type
-	String type;
+	int diskIndex;
 	
 	//texture
 	Texture disk;
@@ -31,49 +31,49 @@ public class Disk {
 		HEIGHT = 25;
 		
 		if(gameScreen.getDisks().isEmpty()){
-			type = "first";
+			diskIndex = 1;
 			WIDTH = 160;
 			x = 420;
 			y = 330;
 		}
 		if(gameScreen.getDisks().size() == 1){
-			type = "second";
+			diskIndex = 2;
 			WIDTH = 140;
 			x = 430;
 			y = 355;
 		}
 		if(gameScreen.getDisks().size() == 2){
-			type = "third";
+			diskIndex = 3;
 			WIDTH = 120;
 			x = 440;
 			y = 380;
 		}
 		if(gameScreen.getDisks().size() == 3){
-			type = "fourth";
+			diskIndex = 4;
 			WIDTH = 100;
 			x = 450;
 			y = 405;
 		}
 		if(gameScreen.getDisks().size() == 4){
-			type = "fifth";
+			diskIndex = 5;
 			WIDTH = 80;
 			x = 460;
 			y = 430;
 		}
 		if(gameScreen.getDisks().size() == 5){
-			type = "sixth";
+			diskIndex = 6;
 			WIDTH = 60;
 			x = 470;
 			y = 455;
 		}
 		if(gameScreen.getDisks().size() == 6){
-			type = "seventh";
+			diskIndex = 7;
 			WIDTH = 40;
 			x = 480;
 			y = 480;
 		}
 		if(gameScreen.getDisks().size() == 7){
-			type = "eight";
+			diskIndex = 8;
 			WIDTH = 20;
 			HEIGHT = 15;
 			x = 490;
@@ -127,14 +127,16 @@ public class Disk {
 		HEIGHT = hEIGHT;
 	}
 
-	public String getType() {
-		return type;
+
+	
+	public int getDiskIndex() {
+		return diskIndex;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setDiskIndex(int diskIndex) {
+		this.diskIndex = diskIndex;
 	}
-	
+
 	public void dispose(){
 		disk.dispose();
 	}
